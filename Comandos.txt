@@ -1,0 +1,12 @@
+# crear secreto en secret manager 
+aws --endpoint-url=http://localhost:4566 secretsmanager create-secret \
+    --name mydatabase-credentials \
+    --secret-string '{"username":"user","password":"password","host":"localhost","port":"5432","dbname":"mydatabase"}' \
+    --region us-east-1
+
+# crear valor en parameter store
+aws --endpoint-url=http://localhost:4566 ssm put-parameter \
+    --name /config/db_credentials_secret_name \
+    --value mydatabase-credentials \
+    --type String \
+    --region us-east-1
